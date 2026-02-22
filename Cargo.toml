@@ -77,9 +77,10 @@ rust-version = "1.89"
 [profile.release]
 opt-level = 3
 debug = false
-lto = true
+lto = "fat"
 strip = true
 codegen-units = 1
+incremental = false
 
 [profile.bench]
 debug = true
