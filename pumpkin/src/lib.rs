@@ -230,15 +230,14 @@ impl PumpkinServer {
 let players = server_clone.get_all_players();
 
 let list = if players.is_empty() {
-    "(none)".to_string()
+    "<p><span>(none)</span></p>".to_string()
 } else {
-    let items = players.iter()
-        .map(|p| format!("<p><a href=\"/player/{}\"><span>{}</span></a></p>", p.gameprofile.name, p.gameprofile.name))
-        .collect::<String>();
-    format!("<div>{}</div>", items)
+    players.iter()
+        .map(|p| format!("<p><span>{}</span></p>", p.gameprofile.name))
+        .collect::<String>()
 };
 
-let html = format!("<!DOCTYPE html><html><head><title>Norkang</title></head><body><span>Online Players</span>{}</body></html>", list);
+let html = format!("<!DOCTYPE html><html><head><title>Online Players</title></head><body><p>Online Players</p>{}</body></html>", list);
 
 Response::html(html)
                         },
