@@ -5,7 +5,10 @@
 #[cfg(target_os = "wasi")]
 compile_error!("Compiling for WASI targets is not supported!");
 
-use pumpkin_data::packet::CURRENT_MC_PROTOCOL;
+use pumpkin_world::{
+    CURRENT_BEDROCK_MC_PROTOCOL, CURRENT_BEDROCK_MC_VERSION, CURRENT_MC_VERSION,
+    LOWEST_SUPPRORTED_PROTOCOL_VERSION,
+};
 use std::{
     io::{self},
     sync::{Arc, LazyLock, OnceLock},
@@ -40,8 +43,6 @@ pub mod world;
 pub static LOGGER_IMPL: LazyLock<Arc<OnceLock<LoggerOption>>> =
     LazyLock::new(|| Arc::new(OnceLock::new()));
 
-const CARGO_PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
-
 // WARNING: All rayon calls from the tokio runtime must be non-blocking! This includes things
 // like `par_iter`. These should be spawned in the the rayon pool and then passed to the tokio
 // runtime with a channel! See `Level::fetch_chunks` as an example!
@@ -71,14 +72,37 @@ async fn main() {
     info!(
         "{}",
         TextComponent::text(format!(
-            "Starting {} {} Minecraft (Protocol {})",
+            "Starting {} {}",
             TextComponent::text("Pumpkin")
                 .color_named(NamedColor::Gold)
                 .to_pretty_console(),
-            TextComponent::text(CARGO_PKG_VERSION.to_string())
+            TextComponent::text("v0.1.0-tong")
                 .color_named(NamedColor::Green)
+                .to_pretty_console()
+        ))
+        .to_pretty_console(),
+    );
+    info!(
+        "{}",
+        TextComponent::text(format!(
+            "Minecraft Java {} Protocol {}",
+            TextComponent::text(CURRENT_MC_VERSION)
+                .color_named(NamedColor::DarkBlue)
                 .to_pretty_console(),
-            TextComponent::text(CURRENT_MC_PROTOCOL.to_string())
+            TextComponent::text(LOWEST_SUPPRORTED_PROTOCOL_VERSION.to_string())
+                .color_named(NamedColor::DarkBlue)
+                .to_pretty_console()
+        ))
+        .to_pretty_console(),
+    );
+    info!(
+        "{}",
+        TextComponent::text(format!(
+            "Minecraft Bedrock {} Protocol {}",
+            TextComponent::text(CURRENT_BEDROCK_MC_VERSION)
+                .color_named(NamedColor::DarkBlue)
+                .to_pretty_console(),
+            TextComponent::text(CURRENT_BEDROCK_MC_PROTOCOL.to_string())
                 .color_named(NamedColor::DarkBlue)
                 .to_pretty_console()
         ))

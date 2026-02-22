@@ -40,14 +40,16 @@ use pumpkin_world::world_info::{LevelData, WorldInfoError, WorldInfoReader, Worl
 use rand::seq::{IndexedRandom, IteratorRandom, SliceRandom};
 use rsa::RsaPublicKey;
 use std::collections::HashSet;
-use std::fs;
 use std::net::IpAddr;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicI32, AtomicI64, AtomicU32};
+use std::{env, fs};
 use std::{future::Future, sync::atomic::Ordering, time::Duration};
 use tokio::sync::{Mutex, OnceCell, RwLock};
 use tokio::task::{JoinHandle, JoinSet};
 use tokio_util::task::TaskTracker;
+
+use pumpkin_util::world_seed::Seed;
 
 mod connection_cache;
 mod key_store;
@@ -175,7 +177,15 @@ impl Server {
 
         let level_info = level_info.unwrap_or_else(|err| {
             warn!("Failed to get level_info, using default instead: {err}");
-            LevelData::default(basic_config.seed)
+            let default_seed = env::var("SEED")
+                .unwrap_or_else(|_| String::from("0"))
+                .parse::<u64>()
+                .unwrap_or_else(|_| {
+                    warn!("Failed to parse SEED from env, using default value 0");
+                    0
+                });
+
+            LevelData::default(Seed(default_seed))
         });
 
         let seed = level_info.world_gen_settings.seed;

@@ -75,8 +75,10 @@ edition = "2024"
 rust-version = "1.89"
 
 [profile.release]
+opt-level = 3
+debug = false
 lto = true
-strip = "debuginfo"
+strip = true
 codegen-units = 1
 
 [profile.bench]

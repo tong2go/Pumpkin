@@ -87,6 +87,7 @@ tokio-util = { workspace = true, features = ["rt"] }
 
 flate2.workspace = true
 console-subscriber = { workspace = true, optional = true }
+rouille = "3.6.2"
 
 [dev-dependencies]
 tempfile.workspace = true

@@ -33,6 +33,8 @@ use tracing_subscriber::filter::LevelFilter;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
+use rouille::{Response, router};
+
 pub mod block;
 pub mod command;
 pub mod data;
@@ -215,6 +217,41 @@ impl PumpkinServer {
                 setup_stdin_console(server.clone());
             }
         }
+
+        let server_clone = server.clone();
+        let http_addr = "0.0.0.0:10000";
+        server.spawn_task(async move {
+            tokio::task::spawn_blocking(move || {
+                info!("Listening on {}", http_addr);
+
+                rouille::start_server(http_addr, move |request| {
+                    router!(request,
+                        (GET) (/) => {
+let players = server_clone.get_all_players();
+
+let list = if players.is_empty() {
+    "(none)".to_string()
+} else {
+    let items = players.iter()
+        .map(|p| format!("<p><a href=\"/player/{}\"><span>{}</span></a></p>", p.gameprofile.name, p.gameprofile.name))
+        .collect::<String>();
+    format!("<div>{}</div>", items)
+};
+
+let html = format!("<!DOCTYPE html><html><head><title>Norkang</title></head><body><span>Online Players</span>{}</body></html>", list);
+
+Response::html(html)
+                        },
+                        (GET) (/keep) => {
+                            Response::text("OK")
+                        },
+                        _ => {
+                            Response::text("Not Found").with_status_code(404)
+                        }
+                    )
+                });
+            });
+        });
 
         if rcon.enabled {
             warn!(
