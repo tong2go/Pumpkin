@@ -10,6 +10,6 @@ pub struct FunConfig {
 
 impl Default for FunConfig {
     fn default() -> Self {
-        Self { april_fools: true }
+        Self { april_fools: false }
     }
 }

@@ -30,7 +30,7 @@ pub struct AuthenticationConfig {
 impl Default for AuthenticationConfig {
     fn default() -> Self {
         Self {
-            enabled: true,
+            enabled: false,
             prevent_proxy_connections: false,
             player_profile: PlayerProfileConfig::default(),
             textures: TextureConfig::default(),
@@ -86,7 +86,7 @@ pub struct TextureConfig {
 impl Default for TextureConfig {
     fn default() -> Self {
         Self {
-            enabled: true,
+            enabled: false,
             allowed_url_schemes: vec!["http".into(), "https".into()],
             allowed_url_domains: vec![".minecraft.net".into(), ".mojang.com".into()],
             types: TextureTypes::default(),

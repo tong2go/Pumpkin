@@ -23,7 +23,7 @@ impl Default for CommandsConfig {
         Self {
             use_console: true,
             log_console: true,
-            use_tty: true,
+            use_tty: false,
             default_op_level: PermissionLvl::Zero,
         }
     }

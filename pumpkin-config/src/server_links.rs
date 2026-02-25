@@ -35,8 +35,8 @@ pub struct ServerLinksConfig {
 impl Default for ServerLinksConfig {
     fn default() -> Self {
         Self {
-            enabled: true,
-            bug_report: "https://github.com/Pumpkin-MC/Pumpkin/issues".to_string(),
+            enabled: false,
+            bug_report: String::new(),
             support: String::new(),
             status: String::new(),
             feedback: String::new(),

@@ -1,7 +1,7 @@
 use fun::FunConfig;
 use logging::LoggingConfig;
 use pumpkin_util::world_seed::Seed;
-use pumpkin_util::{Difficulty, GameMode, PermissionLvl, random};
+use pumpkin_util::{Difficulty, GameMode, PermissionLvl};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 
 use std::net::SocketAddr;
@@ -136,9 +136,9 @@ impl Default for BasicConfiguration {
     fn default() -> Self {
         Self {
             java_edition: true,
-            java_edition_address: "172.0.0.1:25565".parse().unwrap(),
+            java_edition_address: "127.0.0.1:25565".parse().unwrap(),
             bedrock_edition: true,
-            bedrock_edition_address: "172.0.0.1:19132".parse().unwrap(),
+            bedrock_edition_address: "127.0.0.1:19132".parse().unwrap(),
             seed: Seed(0),
             max_players: 5,
             view_distance: NonZeroU8::new(16).unwrap(),
