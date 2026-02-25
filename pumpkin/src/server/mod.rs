@@ -177,7 +177,7 @@ impl Server {
 
         let level_info = level_info.unwrap_or_else(|err| {
             warn!("Failed to get level_info, using default instead: {err}");
-            let default_seed = env::var("SEED")
+            let default_seed = env::var("LEVEL_SEED")
                 .unwrap_or_else(|_| String::from("0"))
                 .parse::<u64>()
                 .unwrap_or_else(|_| {
