@@ -30,7 +30,7 @@ impl BedrockClient {
         let motd_string = ServerInfo {
             edition: "MCPE",
             // TODO The default motd is to long to be displayed completely
-            motd_line_1: "Pumpkin Server",
+            motd_line_1: "Neotong ?",
             protocol_version: CURRENT_BEDROCK_MC_PROTOCOL,
             version_name: CURRENT_BEDROCK_MC_VERSION,
             player_count,

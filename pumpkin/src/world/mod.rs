@@ -1390,7 +1390,7 @@ impl World {
                 yaw,
                 level_settings,
                 level_id: String::new(),
-                level_name: "Pumpkin world".to_string(),
+                level_name: "world".to_string(),
                 premium_world_template_id: String::new(),
                 is_trial: false,
                 rewind_history_size: VarInt(0),
@@ -1403,7 +1403,7 @@ impl World {
                 enable_itemstack_net_manager: true,
                 // TODO Make this description better!
                 // This gets send from the client to mojang for telemetry
-                server_version: "Pumpkin Rust Server".to_string(),
+                server_version: "Neotong Server".to_string(),
 
                 compound_id: 10,
                 compound_len: VarUInt(0),
