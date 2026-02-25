@@ -18,7 +18,7 @@ impl Default for QueryConfig {
     fn default() -> Self {
         Self {
             enabled: false,
-            address: SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), 25565),
+            address: SocketAddr::new(Ipv4Addr::LOCALHOST.into(), 25565),
         }
     }
 }
