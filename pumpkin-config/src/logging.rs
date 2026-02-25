@@ -25,7 +25,7 @@ impl Default for LoggingConfig {
             threads: true,
             color: true,
             timestamp: true,
-            file: "".to_string(),
+            file: String::new(),
         }
     }
 }
