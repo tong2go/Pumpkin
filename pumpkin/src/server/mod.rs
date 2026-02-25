@@ -181,7 +181,7 @@ impl Server {
                 .unwrap_or_else(|_| String::from("0"))
                 .parse::<u64>()
                 .unwrap_or_else(|_| {
-                    warn!("Failed to parse SEED from env, using default value 0");
+                    warn!("Failed to parse LEVEL_SEED from env, using default value 0");
                     0
                 });
 
